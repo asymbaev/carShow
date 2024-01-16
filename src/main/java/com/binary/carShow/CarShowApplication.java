@@ -1,7 +1,9 @@
 package com.binary.carShow;
 
 import com.binary.carShow.entity.Car;
+import com.binary.carShow.entity.Owner;
 import com.binary.carShow.repository.CarRepository;
+import com.binary.carShow.repository.OwnerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import java.util.List;
 public class CarShowApplication implements CommandLineRunner {
 	@Autowired
 	private CarRepository carRepository;
+
+	@Autowired
+	private OwnerRepository ownerRepository;
 private static final Logger logger = LoggerFactory.getLogger(CarShowApplication.class);
 
 	public static void main(String[] args) {
@@ -30,17 +35,21 @@ private static final Logger logger = LoggerFactory.getLogger(CarShowApplication.
 
 	@Override
 	public void run(String... args) throws Exception {
+		Owner owner = new Owner("John", "Doe");
+		Owner owner2 = new Owner("Dastan", "Smith");
+		ownerRepository.save(owner);
+		ownerRepository.save(owner2);
 
 		List<Car> cars = Arrays.asList(
-				new Car("Ford", "Lighting", "gray", "FL-234", 2023, 75000),
-				new Car("Nissan", "Rogue", "Silver", "Cl335", 2024, 34000)
+				new Car("Ford", "Lighting", "gray", "FL-234", 2023, 75000, owner),
+				new Car("Nissan", "Rogue", "Silver", "Cl335", 2024, 34000, owner2)
 		);
 		carRepository.saveAll(cars);
 
 
 		carRepository.findAll().forEach(car -> logger.info(car.getMake()+" "+car.getModel()));
 
-
+		ownerRepository.findAll().forEach(ow -> logger.info(ow.getFirstName()));
 	}
 
 	// ORM (Object Relational Mapping) : is a technic that allows you to fetch from and manipulate Database
