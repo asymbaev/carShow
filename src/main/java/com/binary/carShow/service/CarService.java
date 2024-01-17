@@ -14,4 +14,6 @@ public interface CarService {
     void deleteCarById(Long id);
 
     Car updateCarById(Long id, Car car);
+
+    List<Car> getCarByMake(String make);
 }

@@ -50,4 +50,9 @@ public class CarController {
         return new ResponseEntity<>(carService.updateCarById(id, car), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/make/{make}")
+    public ResponseEntity<List<Car>> getCarListByMake(@PathVariable String make) {
+        return new ResponseEntity<>(carService.getCarByMake(make), HttpStatus.OK);
+    }
+
 }

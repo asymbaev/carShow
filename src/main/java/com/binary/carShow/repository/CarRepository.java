@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CarRepository extends CrudRepository<Car, Long> {
 
@@ -22,6 +24,11 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     // Layer System:
     // Code and Demand Optional
     // Controller Layer
+
+
+    List<Car> getAllCarByMake(String make);
+
+//    List<Car> findCarByMakeAndModelOrderByAsc(String make, String model);
 }
 
 
