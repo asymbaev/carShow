@@ -2,8 +2,10 @@ package com.binary.carShow;
 
 import com.binary.carShow.entity.Car;
 import com.binary.carShow.entity.Owner;
+import com.binary.carShow.entity.User;
 import com.binary.carShow.repository.CarRepository;
 import com.binary.carShow.repository.OwnerRepository;
+import com.binary.carShow.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class CarShowApplication implements CommandLineRunner {
 
 	@Autowired
 	private OwnerRepository ownerRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 private static final Logger logger = LoggerFactory.getLogger(CarShowApplication.class);
 
 	public static void main(String[] args) {
@@ -45,6 +50,10 @@ private static final Logger logger = LoggerFactory.getLogger(CarShowApplication.
 				new Car("Nissan", "Rogue", "Silver", "Cl335", 2024, 34000, owner2)
 		);
 		carRepository.saveAll(cars);
+
+		userRepository.save(new User("user", "$2y$10$M0fX5AqNb3srn74h0L4MoOO9VmMSoseF4W.eJ/cbpTaI3tkrNMd6K", "USER"));
+		userRepository.save(new User("admin", "$2y$10$XgraTKAPcqInq.pa8kpFHutq7kUNGson9sIU/CKI1FY4HfuT7rdPm", "ADMIN"));
+
 
 
 		carRepository.findAll().forEach(car -> logger.info(car.getMake()+" "+car.getModel()));
