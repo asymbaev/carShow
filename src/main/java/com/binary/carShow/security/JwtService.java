@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 
@@ -25,10 +26,10 @@ public class JwtService {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (token != null) {
             String user = Jwts.parser()
-                    .setSigningKey(key)
+                    .verifyWith((SecretKey) key)
                     .build()
-                    .parseClaimsJws(token.replace(PREFIX, ""))
-                    .getBody()
+                    .parseSignedClaims(token.replace(PREFIX, ""))
+                    .getPayload()
                     .getSubject();
             if (user != null) return user;
 
