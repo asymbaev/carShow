@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController // Consists 2 annotations, called Response body and Controller
+@CrossOrigin
 @RequestMapping("/api/v1/car")
 public class CarController {
     // Json
